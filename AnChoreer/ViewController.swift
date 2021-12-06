@@ -13,7 +13,10 @@ enum ViewStatus {
     case All
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,StateAnimateViewDelegate {
+    
+    //MARK: - Properties
+    
     
     @IBOutlet weak var movieSearchBar: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -22,18 +25,26 @@ class ViewController: UIViewController {
     var dataDictionary:[Int:SearchModelInfo] = [:]
     var mainisFlag:[Bool] = []
     
+    
+    //MARK: - Lifecycle
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configure()
     }
     override func viewWillAppear(_ animated: Bool) {
-        print("viewwllAppear  Flag Value\(self.mainisFlag)")
+        super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
     
-    public func configure() {
+    
+    //MARK: - Helpers
+    
+    
+    private func configure() {
         tableView.separatorColor = .lightGray
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.delegate = self
@@ -74,7 +85,7 @@ class ViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: label)
     }
     
-    private func dispatchConfigureCell(_ indexPath: IndexPath) {
+    private func configureCell(indexpath indexPath: IndexPath) {
         if ViewStatusType == .All {
             DispatchQueue.global(qos: .utility).async { [weak self] in
                 guard let self = self else { return }
@@ -98,10 +109,13 @@ class ViewController: UIViewController {
                         cell.movieUserRatingLabel.text = "평점: \(self.resultDataModel[indexPath.row].userRating)"
                         cell.movieUserSuggestButton.setImage(self.mainisFlag[indexPath.row] ? UIImage(named: "starEnable") : UIImage(named: "stardDisable"), for: .normal)
                         self.statusInfoData(self.mainisFlag[indexPath.row], indexpath: indexPath)
-                        cell.suggestButtonClosure = {
+                        cell.suggestButtonClosure = { [weak self] in
+                            guard let self = self else  { return }
+                            let mainView = UIView()
                             self.mainisFlag[indexPath.row] = !self.mainisFlag[indexPath.row]
                             UserDefaults.standard.set(self.mainisFlag, forKey: "mainisFlag")
                             guard let mainisFlagInfo = UserDefaults.standard.array(forKey: "mainisFlag") as? [Bool] else { return }
+                            self.stateSuggestView(state: self.mainisFlag[indexPath.row], View: mainView)
                             self.statusInfoData(self.mainisFlag[indexPath.row], indexpath: indexPath)
                             cell.movieUserSuggestButton.setImage(mainisFlagInfo[indexPath.row] ? UIImage(named: "starEnable") : UIImage(named: "stardDisable"), for: .normal)
                         }
@@ -122,28 +136,76 @@ class ViewController: UIViewController {
             }
         }
     }
-
+    
     public func statusInfoData(_ status: Bool, indexpath: IndexPath) {
         if status {
             dataDictionary.updateValue(self.resultDataModel[indexpath.row], forKey: indexpath.row)
-            print("status Main data insert \(dataDictionary)")
         } else {
             dataDictionary.removeValue(forKey: indexpath.row)
-            print("status Main data remove \(dataDictionary)")
         }
     }
     
     
-    public func sendInfoData(index indexPath: IndexPath) {
+    public func pushMainInfo(indexpath indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let anchoreerDetailView = storyboard.instantiateViewController(withIdentifier: "AnChoreerDetailVC") as? AnChoreerDetailViewController
         guard let anchoreerDetailVC = anchoreerDetailView else { return }
         anchoreerDetailVC.suggestInfo = resultDataModel[indexPath.row]
         anchoreerDetailVC.selectIndex = indexPath.row
-        print("test mainisFlag \(UserDefaults.standard.array(forKey: "mainisFlag"))")
         anchoreerDetailVC.detailFlag = mainisFlag
         self.navigationController?.pushViewController(anchoreerDetailVC, animated: true)
     }
+    
+    func stateSuggestView(state: Bool ,View view: UIView) {
+        view.isOpaque = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.layer.cornerRadius = 5
+        view.alpha = 0
+        view.tag = 1
+        view.frame = CGRect(x: self.view.center.x, y: self.view.frame.height, width: 150, height: 40)
+        self.view.addSubview(view)
+        view.centerXAnchor
+            .constraint(equalTo: self.view.centerXAnchor)
+            .isActive = true
+        view.widthAnchor
+            .constraint(equalToConstant: view.frame.width)
+            .isActive = true
+        view.heightAnchor
+            .constraint(equalToConstant: 40)
+            .isActive = true
+        view.bottomAnchor
+            .constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            .isActive = true
+        let titleLabel = UILabel()
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 12)
+        titleLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        if state {
+            titleLabel.text = "즐겨찾기에 추가했어요"
+        } else {
+            titleLabel.text = "즐겨찾기에서 삭제했어요"
+        }
+        view.addSubview(titleLabel)
+
+        UIView.animateKeyframes(withDuration: 2, delay: 0, options: [.allowUserInteraction]) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
+                view.alpha = 1
+            }
+            UIView.addKeyframe(withRelativeStartTime: 1.0, relativeDuration: 1.0) {
+                view.alpha = 0
+            }
+        } completion: { _ in
+            if let animationView = self.view.viewWithTag(1) {
+                animationView.removeFromSuperview()
+            }
+        }
+    }
+    
+    
+    //MARK: - Selectors
+    
     
     @objc
     public func rightBarButtonDidTap() {
@@ -151,6 +213,7 @@ class ViewController: UIViewController {
         let suggestView = storyboard.instantiateViewController(withIdentifier: "SuggestVC") as? SuggestViewController
         guard let suggestVC = suggestView else { return }
         suggestVC.suggestDataDictionary = dataDictionary
+        suggestVC.suggestDetailFlag = mainisFlag
         self.navigationController?.pushViewController(suggestVC, animated: true)
     }
     
@@ -171,11 +234,11 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         switch ViewStatusType {
         case .All:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AnChoreerCell", for: indexPath) as! AnChoreerTableViewCell
-            dispatchConfigureCell(indexPath)
+            configureCell(indexpath: indexPath)
             return cell
         case .Empty:
             let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as? AnchoreerEmptyTableViewCell
-            dispatchConfigureCell(indexPath)
+            configureCell(indexpath: indexPath)
             return emptyCell!
         }
         
@@ -192,7 +255,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        sendInfoData(index: indexPath)
+        pushMainInfo(indexpath: indexPath)
     }
     
 }
@@ -209,7 +272,6 @@ extension ViewController: UITextFieldDelegate {
                 DispatchQueue.main.async {
                     self.resultDataModel = result
                     self.mainisFlag = Array(repeating: false, count: self.resultDataModel.count)
-                    print("main is Flag Data \(self.mainisFlag)")
                     self.ViewStatusType = .All
                     self.tableView.reloadData()
                 }
@@ -228,3 +290,11 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
+
+
+//MARK: - Protocol
+
+
+protocol StateAnimateViewDelegate {
+    func stateSuggestView(state: Bool, View view: UIView)
+}

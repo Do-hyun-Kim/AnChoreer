@@ -12,8 +12,6 @@
 		6CD04779E984FFD05C33E4FE /* Pods_AnChoreer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1102E7230A9A3DC128FF91BE /* Pods_AnChoreer.framework */; };
 		FF6B6CC727592FF100727DCC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF6B6CC627592FF100727DCC /* WebKit.framework */; };
 		FF6B6CC9275A72E600727DCC /* SuggestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6B6CC8275A72E600727DCC /* SuggestViewController.swift */; };
-		FF6B6CCC275BE88D00727DCC /* SuggestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6B6CCA275BE88C00727DCC /* SuggestTableViewCell.swift */; };
-		FF6B6CCD275BE88D00727DCC /* SuggestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF6B6CCB275BE88C00727DCC /* SuggestTableViewCell.xib */; };
 		FF8600E92758F49A009E450D /* AnchoreerEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8600E72758F499009E450D /* AnchoreerEmptyTableViewCell.swift */; };
 		FF8600EA2758F49A009E450D /* AnchoreerEmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF8600E82758F49A009E450D /* AnchoreerEmptyTableViewCell.xib */; };
 		FFC243F42758B7F20021F195 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC243F32758B7F20021F195 /* AppDelegate.swift */; };
@@ -61,8 +59,6 @@
 		FA6CC7DF01FD739A74C6A530 /* Pods-AnChoreerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnChoreerTests.debug.xcconfig"; path = "Target Support Files/Pods-AnChoreerTests/Pods-AnChoreerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF6B6CC627592FF100727DCC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		FF6B6CC8275A72E600727DCC /* SuggestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestViewController.swift; sourceTree = "<group>"; };
-		FF6B6CCA275BE88C00727DCC /* SuggestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestTableViewCell.swift; sourceTree = "<group>"; };
-		FF6B6CCB275BE88C00727DCC /* SuggestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestTableViewCell.xib; sourceTree = "<group>"; };
 		FF8600E72758F499009E450D /* AnchoreerEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoreerEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		FF8600E82758F49A009E450D /* AnchoreerEmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnchoreerEmptyTableViewCell.xib; sourceTree = "<group>"; };
 		FFC243F02758B7F20021F195 /* AnChoreer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnChoreer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,8 +207,6 @@
 				FFC2442A2758C7E70021F195 /* AnChoreerTableViewCell.xib */,
 				FF8600E72758F499009E450D /* AnchoreerEmptyTableViewCell.swift */,
 				FF8600E82758F49A009E450D /* AnchoreerEmptyTableViewCell.xib */,
-				FF6B6CCA275BE88C00727DCC /* SuggestTableViewCell.swift */,
-				FF6B6CCB275BE88C00727DCC /* SuggestTableViewCell.xib */,
 			);
 			path = AnChoreerCell;
 			sourceTree = "<group>";
@@ -328,7 +322,6 @@
 			files = (
 				FFC244002758B7F80021F195 /* LaunchScreen.storyboard in Resources */,
 				FFC2442C2758C7E70021F195 /* AnChoreerTableViewCell.xib in Resources */,
-				FF6B6CCD275BE88D00727DCC /* SuggestTableViewCell.xib in Resources */,
 				FF8600EA2758F49A009E450D /* AnchoreerEmptyTableViewCell.xib in Resources */,
 				FFC243FD2758B7F80021F195 /* Assets.xcassets in Resources */,
 				FFC243FB2758B7F20021F195 /* Main.storyboard in Resources */,
@@ -459,7 +452,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF6B6CCC275BE88D00727DCC /* SuggestTableViewCell.swift in Sources */,
 				FF8600E92758F49A009E450D /* AnchoreerEmptyTableViewCell.swift in Sources */,
 				FFC243F82758B7F20021F195 /* ViewController.swift in Sources */,
 				FFC2442B2758C7E70021F195 /* AnChoreerTableViewCell.swift in Sources */,

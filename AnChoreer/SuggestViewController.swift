@@ -8,20 +8,39 @@
 import UIKit
 
 class SuggestViewController: UIViewController {
+    
+    //MARK: - Properties
+    
+    
     @IBOutlet weak var suggestTableView: UITableView!
-
+    
     public var suggestStatusType =  ViewStatus.Empty
     var suggestDataInfo:[SearchModelInfo] = []
+    var suggestKeyInfo:[Int] = []
     var suggestDataDictionary:[Int:SearchModelInfo] = [:]
+    var suggestDetailFlag: [Bool] = []
+    
+    
+    //MARK: - Lifecycle
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setsuggestInfo()
-        suggestConfigure()
-        print("test data dictionary \(suggestDataInfo)")
+        setSuggestInfo()
+        configure()
     }
     
-    private func suggestConfigure() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        suggestStatusType = suggestDataInfo.isEmpty ? ViewStatus.Empty : ViewStatus.All
+        suggestTableView.reloadData()
+    }
+    
+    
+    //MARK: - Helpers
+    
+    
+    private func configure() {
         let titleView = UILabel()
         titleView.text = "즐겨찾기 목록"
         titleView.font = UIFont.boldSystemFont(ofSize: 18)
@@ -43,15 +62,7 @@ class SuggestViewController: UIViewController {
         suggestTableView.register(suggestNib, forCellReuseIdentifier: "AnChoreerCell")
     }
     
-    public func setsuggestInfo() {
-        DispatchQueue.global().async {
-            for (_,item) in self.suggestDataDictionary.enumerated() {
-                self.suggestDataInfo.append(item.value)
-            }
-        }
-    }
-    
-    private func configureDispatchCell(index indexPath: IndexPath) {
+    private func configureCell(indexpath indexPath: IndexPath) {
         if suggestStatusType == .All {
             DispatchQueue.global(qos: .utility).async { [weak self] in
                 guard let self = self else { return }
@@ -86,20 +97,34 @@ class SuggestViewController: UIViewController {
         }
     }
     
-    public func detailSendInfo(index indexPath: IndexPath) {
+    public func setSuggestInfo() {
+        DispatchQueue.global().async { [self] in
+            for (_,item) in self.suggestDataDictionary.enumerated() {
+                suggestDataInfo.append(item.value)
+                suggestKeyInfo.append(item.key)
+            }
+        }
+    }
+    
+    public func pushSuggestInfo(indexpath indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let anchoreerDetailView = storyboard.instantiateViewController(withIdentifier: "AnChoreerDetailVC") as? AnChoreerDetailViewController
         guard let anchoreerDetailVC = anchoreerDetailView else { return }
         anchoreerDetailVC.suggestInfo = suggestDataInfo[indexPath.row]
-        anchoreerDetailVC.selectIndex = indexPath.row
+        anchoreerDetailVC.selectIndex = suggestKeyInfo[indexPath.row]
+        anchoreerDetailVC.detailFlag = suggestDetailFlag
+        anchoreerDetailVC.detailInfoDictionary = suggestDataDictionary
         self.navigationController?.pushViewController(anchoreerDetailVC, animated: true)
     }
+    
+    //MARK: - Selectors
+    
     
     @objc
     private func rightButtonDidTap() {
         self.navigationController?.popViewController(animated: true)
     }
-        
+    
 }
 
 
@@ -113,23 +138,23 @@ extension SuggestViewController: UITableViewDelegate,UITableViewDataSource {
             return suggestDataInfo.count
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch suggestStatusType {
         case .All:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AnChoreerCell", for: indexPath) as! AnChoreerTableViewCell
-            configureDispatchCell(index: indexPath)
+            configureCell(indexpath: indexPath)
             return cell
         case .Empty:
             let emptyCell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath) as? AnchoreerEmptyTableViewCell
-            configureDispatchCell(index: indexPath)
+            configureCell(indexpath: indexPath)
             return emptyCell!
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        detailSendInfo(index: indexPath)
+        pushSuggestInfo(indexpath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -140,5 +165,5 @@ extension SuggestViewController: UITableViewDelegate,UITableViewDataSource {
             return tableView.frame.height
         }
     }
-
+    
 }
