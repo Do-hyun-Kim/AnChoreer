@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnChoreerCell" id="KGk-i7-Jjw" customClass="AnChoreerTableViewCell" customModule="AnChoreer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MRI-DX-eHi">
+                        <rect key="frame" x="10" y="10" width="60" height="79.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="4me-ui-tTH"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1991 봄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4A-Vz-gyO">
+                        <rect key="frame" x="80" y="10" width="200" height="15"/>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="13"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="감독" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xd-Zd-X4i">
+                        <rect key="frame" x="80" y="31.5" width="200" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="W0P-uy-l8Z"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="출연" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZ6-Bp-eFJ">
+                        <rect key="frame" x="80" y="55" width="200" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="fyV-ah-iny"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbM-Az-lzq">
+                        <rect key="frame" x="80" y="79.5" width="200" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="wq1-e6-uac"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buo-dN-VZj">
+                        <rect key="frame" x="290" y="10" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Pgx-2Q-Tzt"/>
+                            <constraint firstAttribute="width" constant="20" id="z0a-De-0id"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="stardDisable"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hbM-Az-lzq" firstAttribute="leading" secondItem="K4A-Vz-gyO" secondAttribute="leading" id="13h-qz-kxF"/>
+                    <constraint firstItem="VZ6-Bp-eFJ" firstAttribute="leading" secondItem="K4A-Vz-gyO" secondAttribute="leading" id="54q-Nm-Bf9"/>
+                    <constraint firstItem="VZ6-Bp-eFJ" firstAttribute="trailing" secondItem="K4A-Vz-gyO" secondAttribute="trailing" id="6CN-Xg-Lsn"/>
+                    <constraint firstItem="hbM-Az-lzq" firstAttribute="top" secondItem="VZ6-Bp-eFJ" secondAttribute="bottom" constant="14.5" id="6Tr-I4-pxt"/>
+                    <constraint firstItem="1Xd-Zd-X4i" firstAttribute="top" secondItem="K4A-Vz-gyO" secondAttribute="bottom" constant="6.5" id="8o8-2g-TSf"/>
+                    <constraint firstItem="K4A-Vz-gyO" firstAttribute="leading" secondItem="MRI-DX-eHi" secondAttribute="trailing" constant="10" id="AuL-mr-bnA"/>
+                    <constraint firstItem="1Xd-Zd-X4i" firstAttribute="leading" secondItem="K4A-Vz-gyO" secondAttribute="leading" id="B2I-M5-ZI2"/>
+                    <constraint firstItem="hbM-Az-lzq" firstAttribute="bottom" secondItem="MRI-DX-eHi" secondAttribute="bottom" id="UAo-j1-t9v"/>
+                    <constraint firstItem="Buo-dN-VZj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Ukq-iB-TEI"/>
+                    <constraint firstItem="K4A-Vz-gyO" firstAttribute="top" secondItem="MRI-DX-eHi" secondAttribute="top" id="VrS-4B-0px"/>
+                    <constraint firstItem="MRI-DX-eHi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YSJ-N3-Ere"/>
+                    <constraint firstItem="Buo-dN-VZj" firstAttribute="leading" secondItem="K4A-Vz-gyO" secondAttribute="trailing" constant="10" id="a8z-8H-xH4"/>
+                    <constraint firstAttribute="trailing" secondItem="Buo-dN-VZj" secondAttribute="trailing" constant="10" id="m4Z-cm-fAf"/>
+                    <constraint firstItem="VZ6-Bp-eFJ" firstAttribute="top" secondItem="1Xd-Zd-X4i" secondAttribute="bottom" constant="13.5" id="rv2-uJ-rwy"/>
+                    <constraint firstAttribute="bottom" secondItem="MRI-DX-eHi" secondAttribute="bottom" constant="10" id="t39-mR-2Lv"/>
+                    <constraint firstItem="MRI-DX-eHi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="wgB-mW-Yzk"/>
+                    <constraint firstItem="1Xd-Zd-X4i" firstAttribute="trailing" secondItem="K4A-Vz-gyO" secondAttribute="trailing" id="yXT-GP-cLc"/>
+                    <constraint firstItem="hbM-Az-lzq" firstAttribute="trailing" secondItem="K4A-Vz-gyO" secondAttribute="trailing" id="zlI-0B-ed5"/>
+                    <constraint firstItem="Buo-dN-VZj" firstAttribute="centerY" secondItem="K4A-Vz-gyO" secondAttribute="centerY" constant="2.5" id="zqK-pF-VeR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="movieActorLabel" destination="VZ6-Bp-eFJ" id="uy2-P7-nYm"/>
+                <outlet property="movieDirectorLabel" destination="1Xd-Zd-X4i" id="qzO-nn-maN"/>
+                <outlet property="movieImageView" destination="MRI-DX-eHi" id="SxH-gC-pI7"/>
+                <outlet property="movieTitleLabel" destination="K4A-Vz-gyO" id="d4b-Se-WJc"/>
+                <outlet property="movieUserRatingLabel" destination="hbM-Az-lzq" id="pg9-Zj-qUe"/>
+                <outlet property="movieUserSuggestButton" destination="Buo-dN-VZj" id="wIQ-RU-z28"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="96.428571428571431"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="stardDisable" width="24" height="24"/>
+    </resources>
+</document>
