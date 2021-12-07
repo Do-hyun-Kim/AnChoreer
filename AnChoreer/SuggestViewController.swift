@@ -17,7 +17,7 @@ class SuggestViewController: UIViewController {
     public var suggestStatusType =  ViewStatus.Empty
     var suggestDataInfo:[SearchModelInfo] = []
     var suggestKeyInfo:[Int] = []
-    var suggestDataDictionary:[Int:SearchModelInfo] = [:]
+    var suggestInfoDictionary:[Int:SearchModelInfo] = [:]
     var suggestDetailFlag: [Bool] = []
     
     
@@ -99,7 +99,7 @@ class SuggestViewController: UIViewController {
     
     public func setSuggestInfo() {
         DispatchQueue.global().async { [self] in
-            for (_,item) in self.suggestDataDictionary.enumerated() {
+            for (_,item) in self.suggestInfoDictionary.enumerated() {
                 suggestDataInfo.append(item.value)
                 suggestKeyInfo.append(item.key)
             }
@@ -113,7 +113,7 @@ class SuggestViewController: UIViewController {
         anchoreerDetailVC.suggestInfo = suggestDataInfo[indexPath.row]
         anchoreerDetailVC.selectIndex = suggestKeyInfo[indexPath.row]
         anchoreerDetailVC.detailFlag = suggestDetailFlag
-        anchoreerDetailVC.detailInfoDictionary = suggestDataDictionary
+        anchoreerDetailVC.detailInfoDictionary = suggestInfoDictionary
         self.navigationController?.pushViewController(anchoreerDetailVC, animated: true)
     }
     

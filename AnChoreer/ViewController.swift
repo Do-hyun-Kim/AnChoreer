@@ -22,7 +22,7 @@ class ViewController: UIViewController,StateAnimateViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     public var resultDataModel:[SearchModelInfo] = []
     var ViewStatusType = ViewStatus.Empty
-    var dataDictionary:[Int:SearchModelInfo] = [:]
+    var mainInfoDictionary:[Int:SearchModelInfo] = [:]
     var mainisFlag:[Bool] = []
     
     
@@ -139,9 +139,9 @@ class ViewController: UIViewController,StateAnimateViewDelegate {
     
     public func statusInfoData(_ status: Bool, indexpath: IndexPath) {
         if status {
-            dataDictionary.updateValue(self.resultDataModel[indexpath.row], forKey: indexpath.row)
+            mainInfoDictionary.updateValue(self.resultDataModel[indexpath.row], forKey: indexpath.row)
         } else {
-            dataDictionary.removeValue(forKey: indexpath.row)
+            mainInfoDictionary.removeValue(forKey: indexpath.row)
         }
     }
     
@@ -212,7 +212,7 @@ class ViewController: UIViewController,StateAnimateViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let suggestView = storyboard.instantiateViewController(withIdentifier: "SuggestVC") as? SuggestViewController
         guard let suggestVC = suggestView else { return }
-        suggestVC.suggestDataDictionary = dataDictionary
+        suggestVC.suggestInfoDictionary = mainInfoDictionary
         suggestVC.suggestDetailFlag = mainisFlag
         self.navigationController?.pushViewController(suggestVC, animated: true)
     }

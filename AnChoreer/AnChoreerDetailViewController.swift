@@ -167,7 +167,7 @@ class AnChoreerDetailViewController: UIViewController,StateAnimateViewDelegate {
             if viewcontroller is SuggestViewController {
                 if let suggestViewController = viewcontroller as? SuggestViewController {
                     pushDetailInfo()
-                    suggestViewController.suggestDataDictionary = detailInfoDictionary
+                    suggestViewController.suggestInfoDictionary = detailInfoDictionary
                     suggestViewController.suggestDataInfo = detailInfo
                     suggestViewController.suggestDetailFlag = detailFlag
                     suggestViewController.suggestKeyInfo = detailKeyInfo
